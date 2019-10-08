@@ -1,0 +1,16 @@
+<script src="~/vexflow/releases/vexflow-min.js"></script>
+
+<script>
+VF = Vex.Flow;
+
+// Create an SVG renderer and attach it to the DIV element named "boo".
+var div = document.getElementById("boo")
+var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+
+// Size our svg:
+renderer.resize(500, 500);
+
+// And get a drawing context:
+var context = renderer.getContext();
+
+</script>
