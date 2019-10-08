@@ -1,5 +1,3 @@
-# Senior-Project
-
 <div id="boo"></div>
 
 <script src="~/vexflow/releases/vexflow-min.js"></script>
