@@ -1,6 +1,6 @@
 <div id="boo"></div>
 
-<script src="~/vexflow/releases/vexflow-min.js"></script>
+<script src="~/vexflow/releases/vexflow-min.js" type="text/javascript"></script>
 
 <script>
 VF = Vex.Flow;
