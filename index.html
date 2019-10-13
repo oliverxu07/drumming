@@ -4,67 +4,24 @@
 </head>
 <body>
 
-<!-- <script src="opensheetmusicdisplay.min.js"></script> -->
-<script src="vexflow-min.js"></script>
+<script src="vexflow/releases/vexflow-min.js"></script>
 <div id="boo"/>
 
 <script>
 
 	// Create an SVG renderer and attach it to the DIV element named "boo".
 	var vf = new Vex.Flow.Factory({renderer: {elementId: 'boo'}});
-	var score = vf.EasyScore();
+	var score = vf.EasyScore().set({ clef: 'bass', time: '12/8' });
 	var system = vf.System();
 
+	var voice = score.voice.bind(score);
+	var notes = score.notes.bind(score);
+
 	system.addStave({
-	  voices: [score.voice(score.notes('C#5/q, B4, A4, G#4'))]
+	  voices: [voice(notes('g3/8, b3, c4, e3/r, b3, e3/r, c4, b3, a3, e3/r, b3, e3/r'))]
 	}).addClef('bass').addKeySignature('G#m');
 
 	vf.draw();
-
-	// VF = Vex.Flow;
-	// // Create an SVG renderer and attach it to the DIV element named "boo".
-	// var div = document.getElementById("canvas")
-	// var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
-
-	// // Size our svg:
-	// renderer.resize(500, 500);
-
-	// // And get a drawing context:
-	// var context = renderer.getContext();
-
-	// // Create a stave at position 10, 40 of width 400 on the canvas.
-	// var stave = new VF.Stave(10, 40, 400);
-
-	// // Add a clef and time signature.
-	// stave.addClef("bass").addTimeSignature("12/8");
-
-	// // Connect it to the rendering context and draw!
-	// stave.setContext(context).draw();
-
-	// var notes = [
-	//   // A quarter-note C.
-	//   new VF.StaveNote({clef: "bass", keys: ["g/4"], duration: "q" }),
-
-	//   // A quarter-note D.
-	//   new VF.StaveNote({clef: "treble", keys: ["d/4"], duration: "q" }),
-
-	//   // A quarter-note rest. Note that the key (b/4) specifies the vertical
-	//   // position of the rest.
-	//   new VF.StaveNote({clef: "treble", keys: ["b/4"], duration: "qr" }),
-
-	//   // A C-Major chord.
-	//   new VF.StaveNote({clef: "treble", keys: ["c/4", "e/4", "g/4"], duration: "q" })
-	// ];
-
-	// // Create a voice in 4/4 and add above notes
-	// var voice = new VF.Voice({num_beats: 4,  beat_value: 4});
-	// voice.addTickables(notes);
-
-	// // Format and justify the notes to 400 pixels.
-	// var formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
-
-	// // Render voice
-	// voice.draw(context, stave);
 
 </script>
 
