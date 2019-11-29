@@ -4,8 +4,13 @@
 </head>
 <body>
 
+<h1>Senior Project</h1>
+<h2>Oliver Xu</h2>
+<p>This project explores resultant patterns in Steve Reich's Drumming</p>
+<button onclick="nextPattern()">Random Pattern</button>
+<div id="stave-container"/>
+
 <script src="vexflow-min.js"></script>
-<div id="elem"/>
 
 <script>
 
@@ -80,6 +85,7 @@
  		return allPatterns;
  	}
 
+ 	// 0-10 notes possible
  	function countNotes(pattern) {
  		var count = 0;
  		for (var i = 0; i < pattern.length; i++) {
@@ -90,11 +96,13 @@
  		return count;
  	}
 
+ 	// 0-3 stable beats possible
  	function numStableBeats(pattern) {
  		return (pattern[0] != -1) + (pattern[4] != -1) + (pattern[8] != -1);
  	}
 
  	// number of turns in melodic contour, including from last note to first note in the pattern
+ 	// 0-5 turns possible
  	function numMelodicTurns(pattern) {
  		var i = 0;
  		var melody = new Array();
@@ -159,6 +167,7 @@
  		if (patterns.length == 0) {
  			return -1;
  		}
+ 		console.log(patterns.length);
  		var randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
  		return randomPattern;
  	}
@@ -178,18 +187,22 @@
 		}
 	}
 
-	function createLine(notes) {
+	function createLine(pattern) {
 		var line = new Array();
-		for (note of notes) {
+		for (note of pattern) {
 			line.push(getNote(note));
 		}
 		return line.join();
 	}
 
-	// Create an SVG renderer and attach it to the DIV element named "elem".
-	var vf = new Vex.Flow.Factory({renderer: {elementId: 'elem'}});
+	// Create an SVG renderer and attach it to the DIV element named "stave-container".
+	var vf = new Vex.Flow.Factory({renderer: {
+								     elementId: 'stave-container',
+								 	 width: 500,
+								 	 height: 200
+								   }});
 	var score = vf.EasyScore().set({ clef: 'bass', time: '12/8' });
-	var system = vf.System();
+	var context = vf.getContext();
 
 	var voice = score.voice.bind(score);
 	var notes = score.notes.bind(score);
@@ -199,23 +212,26 @@
  	var composite = createComposite(drummer1, drummer2);
  	var allPatterns = genAllPatterns(composite);
 
- 	var randomPattern = pickPattern(8, 3, 3);
- 	if (randomPattern < 0) {
- 		console.log("error!");
- 	}
- 	else {
- 		console.log(randomPattern);
- 	 	system.addStave({
- 	 		voices: [
- 				voice(
- 					notes(createLine(randomPattern))
- 				)
- 			]
- 	 	}).addClef('bass').addKeySignature('G#m');
+ 	function nextPattern() {
+ 		context.clearRect(0, 0, 500, 200);
+ 		var system = vf.System();
+ 		var randomPattern = pickPattern(8, 3, 3);
+ 		if (randomPattern < 0) {
+ 			console.log("error!");
+ 		}
+ 		else {
+ 			console.log(randomPattern);
+ 		 	system.addStave({
+ 		 		voices: [
+ 					voice(
+ 						notes(createLine(randomPattern))
+ 					)
+ 				]
+ 		 	}).addClef('bass').addKeySignature('G#m');
 
- 		vf.draw();
+ 			vf.draw();
+ 		}
  	}
- 	
 
 </script>
 
