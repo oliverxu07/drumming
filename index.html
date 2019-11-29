@@ -7,8 +7,22 @@
 <h1>Senior Project</h1>
 <h2>Oliver Xu</h2>
 <p>This project explores resultant patterns in Steve Reich's Drumming</p>
+
+<section>
+	<h3>Pattern played by drummer 1</h3>
+	<div id="drummer1"></div>
+</section>
+
+<section>
+	<h3>Pattern played by drummer 2 (phased one quarter note ahead of drummer 1)</h3>
+	<div id="drummer2"></div>
+</section>
+
+<section>
+	<h3>Resultant patterns</h3>
+	<p>"...drummers three and four sing and/or play patterns they hear clearly emerging from the combination of the first two drummers." - Steve Reich</p>
 <button onclick="nextPattern()">Random Pattern</button>
-<div id="stave-container"/>
+<div id="stave-container"></div>
 
 <script src="vexflow-min.js"></script>
 
@@ -198,8 +212,8 @@
 	// Create an SVG renderer and attach it to the DIV element named "stave-container".
 	var vf = new Vex.Flow.Factory({renderer: {
 								     elementId: 'stave-container',
-								 	 width: 500,
-								 	 height: 200
+								 	 width: 600,
+								 	 height: 100
 								   }});
 	var score = vf.EasyScore().set({ clef: 'bass', time: '12/8' });
 	var context = vf.getContext();
@@ -209,11 +223,13 @@
 
 	var drummer1 = [0, 3, 5, -1, 3, -1, 5, 3, 2, -1, 3, -1];
  	var drummer2 = [5, -1, 3, -1, 5, 3, 2, -1, 3, -1, 0, 3];
+ 	drawParts('drummer1', drummer1);
+ 	drawParts('drummer2', drummer2);
  	var composite = createComposite(drummer1, drummer2);
  	var allPatterns = genAllPatterns(composite);
 
  	function nextPattern() {
- 		context.clearRect(0, 0, 500, 200);
+ 		context.clearRect(0, 0, 600, 100);
  		var system = vf.System();
  		var randomPattern = pickPattern(8, 3, 3);
  		if (randomPattern < 0) {
@@ -231,6 +247,28 @@
 
  			vf.draw();
  		}
+ 	}
+
+ 	function drawParts(elementId, pattern) {
+ 		var vf = new Vex.Flow.Factory({renderer: {
+								     elementId: elementId,
+								 	 width: 600,
+								 	 height: 100
+								   }});
+ 		var score = vf.EasyScore().set({ clef: 'bass', time: '12/8' });
+ 		var system = vf.System();
+ 		var context = vf.getContext();
+ 		var voice = score.voice.bind(score);
+ 		var notes = score.notes.bind(score);
+ 	 	system.addStave({
+ 	 		voices: [
+ 				voice(
+ 					notes(createLine(pattern))
+ 				)
+ 			]
+ 	 	}).addClef('bass').addKeySignature('G#m');
+
+ 		vf.draw();
  	}
 
 </script>
