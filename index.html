@@ -94,6 +94,7 @@
  		return (pattern[0] != -1) + (pattern[4] != -1) + (pattern[8] != -1);
  	}
 
+ 	// number of turns in melodic contour, including from last note to first note in the pattern
  	function numMelodicTurns(pattern) {
  		var i = 0;
  		var melody = new Array();
@@ -198,7 +199,7 @@
  	var composite = createComposite(drummer1, drummer2);
  	var allPatterns = genAllPatterns(composite);
 
- 	var randomPattern = pickPattern(4, 3, 1);
+ 	var randomPattern = pickPattern(8, 3, 3);
  	if (randomPattern < 0) {
  		console.log("error!");
  	}
