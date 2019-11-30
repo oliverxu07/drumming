@@ -1,6 +1,11 @@
 <html>
 <head>
 	<title> Senior Project </title>
+	<style>
+		.button {
+			font-size: 36px;
+		}
+	</style>
 </head>
 <body>
 
@@ -21,8 +26,15 @@
 <section>
 	<h3>Resultant patterns</h3>
 	<p>"...drummers three and four sing and/or play patterns they hear clearly emerging from the combination of the first two drummers." - Steve Reich</p>
-<button onclick="nextPattern()">Random Pattern</button>
-<div id="stave-container"></div>
+	<h4>Enter parameters and click on button</h4>
+	<p>Number of notes (0-10): <input type="text" id="numNotes" value="8"></p>
+	<p>Number of stable beats (0-3): <input type="text" id="numStableBeats" value="3"></p>
+	<p>Number of melodic turns (0-5): <input type="text" id="numMelodicTurns" value="3"></p>
+	<button class="button" onclick="nextPattern()">Random Pattern</button>
+	<p>Number of patterns that exist for these parameters:</p>
+	<p id="numPatterns"></p>
+	<div id="stave-container"></div>
+</section>
 
 <script src="vexflow-min.js"></script>
 
@@ -179,9 +191,10 @@
  			}
  		}
  		if (patterns.length == 0) {
+ 			document.getElementById("numPatterns").innerHTML = "No pattern exists for these parameters, please try a different combination.";
  			return -1;
  		}
- 		console.log(patterns.length);
+ 		document.getElementById("numPatterns").innerHTML = patterns.length;
  		var randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
  		return randomPattern;
  	}
@@ -230,13 +243,13 @@
 
  	function nextPattern() {
  		context.clearRect(0, 0, 600, 100);
- 		var system = vf.System();
- 		var randomPattern = pickPattern(8, 3, 3);
- 		if (randomPattern < 0) {
- 			console.log("error!");
- 		}
- 		else {
+ 		var numNotes = document.getElementById("numNotes").value;
+ 		var numStableBeats = document.getElementById("numStableBeats").value;
+ 		var numMelodicTurns = document.getElementById("numMelodicTurns").value;
+ 		var randomPattern = pickPattern(numNotes, numStableBeats, numMelodicTurns);
+ 		if (randomPattern != -1) {
  			console.log(randomPattern);
+ 			var system = vf.System();
  		 	system.addStave({
  		 		voices: [
  					voice(
