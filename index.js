@@ -209,8 +209,6 @@ function createLine(pattern) {
 	var playButton = document.getElementById('play-button');
 	playButton.addEventListener('click', play);
 
-	var MidiPlayer = require('midi-player-js');
-
 	// Initialize player and register event handler
 	var Player = new MidiPlayer.Player(function(event) {
 		midiCallback(event);
