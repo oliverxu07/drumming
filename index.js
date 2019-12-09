@@ -215,18 +215,20 @@ function createLine(pattern) {
 	});
 
 	var Soundfont = require('soundfont-player');
-
 	var ac = new AudioContext();
-	
-
+	var instrument;
+	Soundfont.instrument(ac, 'marimba').then(function (marimba) {
+		instrument = marimba;
+	})
 
 function midiCallback(event) {
-	console.log(event);
+	// console.log(event);
 	
 	if (event.name == 'Note on') {
-		Soundfont.instrument(ac, 'clavinet').then(function (clavinet) {
-			clavinet.play(event.noteName, ac.currentTime);
-		})
+		instrument.play(event.noteName, ac.currentTime);
+		// Soundfont.instrument(ac, 'clavinet').then(function (clavinet) {
+		// 	clavinet.play(event.noteName, ac.currentTime);
+		// })
 	}
 	else if (event.name == 'Note off') {
 		stop();
@@ -234,7 +236,6 @@ function midiCallback(event) {
 }
 
 function play() {
-	console.log("play");
 	// Load a MIDI file
 	Player.loadDataUri(dataUri);
 	Player.play();
