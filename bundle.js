@@ -217,15 +217,16 @@ function createLine(pattern) {
 		midiCallback(event);
 	});
 
-	Player.setTempo(200);
-
 	var Soundfont = require('soundfont-player');
 	var ac = new AudioContext();
 	var instrument;
-	Soundfont.instrument(ac, 'bongos-mp3.js').then(function (bongos) {
+	Soundfont.instrument(ac, '', {nameToUrl: getUrl}).then(function (bongos) {
 		instrument = bongos;
-		instrument.play('G3')
 	})
+
+function getUrl() {
+	return 'http://oxumusic.com/project/bongos.mp3.js';
+}
 
 function midiCallback(event) {	
 	if (event.name == 'Note on') {
@@ -259,6 +260,8 @@ function nextPattern() {
 		var newVoice = voice(notes(createLine(randomPattern)));
 		// create MIDI track from voice
 		var track = vexWriter.trackFromVoice(newVoice);
+		// set tempo for MIDI track
+		track.setTempo(324);
 		// create Writer from track
 		var writer = new MidiWriter.Writer([track]);
 		// write MIDI track as dataUri
