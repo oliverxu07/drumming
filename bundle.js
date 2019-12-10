@@ -208,60 +208,70 @@ function createLine(pattern) {
 	var vexWriter = new MidiWriter.VexFlow();
 
 	var playButton = document.getElementById('play-button');
+	var pauseButton = document.getElementById('pause-button');
 	playButton.addEventListener('click', play);
+	pauseButton.addEventListener('click', pause);
 
 	// Initialize player and register event handler
 	var Player = new MidiPlayer.Player(function(event) {
 		midiCallback(event);
 	});
 
+	Player.setTempo(200);
+
 	var Soundfont = require('soundfont-player');
 	var ac = new AudioContext();
 	var instrument;
-	Soundfont.instrument(ac, 'marimba').then(function (marimba) {
-		instrument = marimba;
+	Soundfont.instrument(ac, 'bongos-mp3.js').then(function (bongos) {
+		instrument = bongos;
+		instrument.play('G3')
 	})
 
-function midiCallback(event) {
-	// console.log(event);
-	
+function midiCallback(event) {	
 	if (event.name == 'Note on') {
-		instrument.play(event.noteName, ac.currentTime);
-		// Soundfont.instrument(ac, 'clavinet').then(function (clavinet) {
-		// 	clavinet.play(event.noteName, ac.currentTime);
-		// })
+		instrument.play(event.noteName);
 	}
 	else if (event.name == 'Note off') {
-		stop();
+		instrument.stop();
 	}
 }
 
 function play() {
-	// Load a MIDI file
-	Player.loadDataUri(dataUri);
 	Player.play();
 }	
 
+function pause() {
+	Player.pause();
+}
+
 function nextPattern() {
+	// clear existing stave
 	context.clearRect(0, 0, 600, 100);
+	// get parameters from user
 	var numNotes = document.getElementById("numNotes").value;
 	var numStableBeats = document.getElementById("numStableBeats").value;
 	var numMelodicTurns = document.getElementById("numMelodicTurns").value;
+	// generate random pattern using parameters
 	var randomPattern = pickPattern(numNotes, numStableBeats, numMelodicTurns);
+	// check if random pattern exists given parameters
 	if (randomPattern != -1) {
-		console.log(randomPattern);
+		// create VexFlow voice from pattern
 		var newVoice = voice(notes(createLine(randomPattern)));
+		// create MIDI track from voice
 		var track = vexWriter.trackFromVoice(newVoice);
+		// create Writer from track
 		var writer = new MidiWriter.Writer([track]);
-		dataUri = writer.dataUri();
-		console.log(dataUri);
+		// write MIDI track as dataUri
+		var dataUri = writer.dataUri();
+		// load MIDI track into Player
+		Player.loadDataUri(dataUri);
+		// draw VexFlow voice
 		var system = vf.System();
 	 	system.addStave({
 	 		voices: [
 				newVoice
 			]
 	 	}).addClef('bass').addKeySignature('G#m');
-
 		vf.draw();
 	}
 }
