@@ -252,6 +252,7 @@ function nextPattern() {
 	var numNotes = document.getElementById("numNotes").value;
 	var numStableBeats = document.getElementById("numStableBeats").value;
 	var numMelodicTurns = document.getElementById("numMelodicTurns").value;
+	var tempo = document.getElementById("tempo").value;
 	// generate random pattern using parameters
 	var randomPattern = pickPattern(numNotes, numStableBeats, numMelodicTurns);
 	// check if random pattern exists given parameters
@@ -261,7 +262,7 @@ function nextPattern() {
 		// create MIDI track from voice
 		var track = vexWriter.trackFromVoice(newVoice);
 		// set tempo for MIDI track
-		track.setTempo(324);
+		track.setTempo(tempo);
 		// create Writer from track
 		var writer = new MidiWriter.Writer([track]);
 		// write MIDI track as dataUri
