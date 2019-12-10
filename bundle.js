@@ -238,6 +238,7 @@ function midiCallback(event) {
 }
 
 function play() {
+	ac.resume();
 	Player.play();
 }	
 
