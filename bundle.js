@@ -666,6 +666,7 @@ function loadMidiJSFile (ac, name, options) {
 
 // convert a MIDI.js javascript soundfont file to json
 function midiJsToJson (data) {
+	git.console(data);
   var begin = data.indexOf('MIDI.Soundfont.')
   if (begin < 0) throw Error('Invalid MIDI.js Soundfont format')
   begin = data.indexOf('=', begin) + 2
