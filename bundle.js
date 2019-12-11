@@ -238,8 +238,14 @@ function midiCallback(event) {
 }
 
 function play() {
-	ac.resume();
-	Player.play();
+	if (ac.state === 'suspended') {
+		ac.resume().then(function() {
+			Player.Play();
+		})
+	}
+	else {
+		Player.play();
+	}
 }	
 
 function pause() {
@@ -247,6 +253,8 @@ function pause() {
 }
 
 function nextPattern() {
+	ac.resume();
+
 	// clear existing stave
 	context.clearRect(0, 0, 600, 100);
 	// get parameters from user
