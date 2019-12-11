@@ -224,7 +224,7 @@ function createLine(pattern) {
 	})
 
 function getUrl() {
-	return 'http://oxumusic.com/project/bongos.mp3.js';
+	return 'https://oxumusic.com/project/bongos.mp3.js';
 }
 
 function midiCallback(event) {	
