@@ -218,14 +218,16 @@ function createLine(pattern) {
 	});
 
 	var Soundfont = require('soundfont-player');
+
+	var ac;
 	if ('webkitAudioContext' in window) {
-		var ac = new webkitAudioContext();
+		ac = new webkitAudioContext();
 	}
 	else if ('AudioContext' in window) {
-		var ac = new AudioContext();
+		ac = new AudioContext();
 	}
 	else {
-		alert("Audio playback is unsupported by your browser. Please upgrade to the latest version of Google Chrome or Apple Safari.");
+		alert("Audio playback is unsupported by your browser. Please upgrade to the latest version of Chrome, Safari, Edge, or Firefox.");
 	}
 	var instrument;
 	Soundfont.instrument(ac, '', {nameToUrl: getUrl}).then(function (bongos) {
@@ -252,6 +254,9 @@ function play() {
 		})
 	}
 	else {
+		if (Player.isPlaying()) {
+			Player.stop();
+		}
 		Player.play();
 	}
 }	

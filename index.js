@@ -253,6 +253,9 @@ function play() {
 		})
 	}
 	else {
+		if (Player.isPlaying()) {
+			Player.stop();
+		}
 		Player.play();
 	}
 }	
