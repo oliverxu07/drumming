@@ -217,7 +217,7 @@ function createLine(pattern) {
 	});
 
 	var Soundfont = require('soundfont-player');
-	var ac = new AudioContext();
+	var ac = new AudioContext() || new webkitAudioContext();
 	var instrument;
 	Soundfont.instrument(ac, '', {nameToUrl: getUrl}).then(function (bongos) {
 		instrument = bongos;
