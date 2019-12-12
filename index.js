@@ -217,7 +217,17 @@ function createLine(pattern) {
 	});
 
 	var Soundfont = require('soundfont-player');
-	var ac = new AudioContext();
+
+	var ac;
+	if ('webkitAudioContext' in window) {
+		ac = new webkitAudioContext();
+	}
+	else if ('AudioContext' in window) {
+		ac = new AudioContext();
+	}
+	else {
+		alert("Audio playback is unsupported by your browser. Please upgrade to the latest version of Chrome, Safari, Edge, or Firefox.");
+	}
 	var instrument;
 	Soundfont.instrument(ac, '', {nameToUrl: getUrl}).then(function (bongos) {
 		instrument = bongos;
