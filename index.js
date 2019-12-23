@@ -9,6 +9,7 @@ button.addEventListener('click', nextPattern);
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
 playButton.addEventListener('click', function() {
+	console.log("play");
 	if (ac.state === 'suspended') {
 		ac.resume().then(function() {
 			Player.play();
