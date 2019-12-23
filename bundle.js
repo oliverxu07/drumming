@@ -243,7 +243,7 @@ function midiCallback(event) {
 		instrument.play(event.noteName);
 	}
 	else if (event.name == 'Note off') {
-		instrument.stop();
+		// instrument.stop();
 	}
 }
 
