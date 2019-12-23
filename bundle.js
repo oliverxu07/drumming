@@ -1,7 +1,30 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
+var Soundfont = require('soundfont-player');
+var MidiWriter = require('midi-writer-js');
+var vexWriter = new MidiWriter.VexFlow();
+
+// configure interactivity
 var button = document.getElementById('random-pattern-button');
 button.addEventListener('click', nextPattern);
+var playButton = document.getElementById('play-button');
+var pauseButton = document.getElementById('pause-button');
+playButton.addEventListener('click', function() {
+	if (ac.state === 'suspended') {
+		ac.resume().then(function() {
+			Player.play();
+		})
+	}
+	else {
+		if (Player.isPlaying()) {
+			Player.stop();
+		}
+		Player.play();
+	}
+});
+pauseButton.addEventListener('click', function() {
+	Player.pause();
+});
 
 // Create an SVG renderer and attach it to the DIV element named "stave-container".
 var vf = new Vex.Flow.Factory({renderer: {
@@ -22,45 +45,25 @@ var composite = createComposite(drummer1, drummer2);
 var allPatterns = genAllPatterns(composite);
 var dataUri;
 
-var MidiWriter = require('midi-writer-js');
-var vexWriter = new MidiWriter.VexFlow();
-
-var playButton = document.getElementById('play-button');
-var pauseButton = document.getElementById('pause-button');
-playButton.addEventListener('click', function() {
-	if (ac.state === 'suspended') {
-		ac.resume().then(function() {
-			Player.play();
-		})
-	}
-	else {
-		if (Player.isPlaying()) {
-			Player.stop();
-		}
-		Player.play();
-	}
-});
-pauseButton.addEventListener('click', function() {
-	Player.pause();
-});
-
 // Initialize player and register event handler
 var Player = new MidiPlayer.Player(function(event) {
 	midiCallback(event);
 });
 
-var Soundfont = require('soundfont-player');
-
+// initialize AudioContext
 var ac;
 if ('webkitAudioContext' in window) {
+	// safari
 	ac = new webkitAudioContext();
 }
 else if ('AudioContext' in window) {
+	// chrome
 	ac = new AudioContext();
 }
 else {
 	alert("Audio playback is unsupported by your browser. Please upgrade to the latest version of Chrome, Safari, Edge, or Firefox.");
 }
+// load samples
 var instrument;
 Soundfont.instrument(ac, '', {nameToUrl: getUrl}).then(function (bongos) {
 	instrument = bongos;
@@ -70,6 +73,7 @@ function getUrl() {
 	return 'https://oxumusic.com/project/bongos.mp3.js';
 }
 
+// plays each note
 function midiCallback(event) {	
 	if (event.name == 'Note on') {
 		instrument.play(event.noteName);
@@ -94,6 +98,7 @@ function getNote(num) {
 	}
 }
 
+// converts pattern as an integer array to a string for VexFlow
 function createLine(pattern) {
 	var line = new Array();
 	for (note of pattern) {
