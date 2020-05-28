@@ -4,6 +4,26 @@ var MidiWriter = require('midi-writer-js');
 var vexWriter = new MidiWriter.VexFlow();
 
 // configure interactivity
+var numNotesSlider = document.getElementById('numNotes');
+var numNotesOutput = document.getElementById('numNotesOutput');
+var numStableBeatsSlider = document.getElementById('numStableBeats');
+var numStableBeatsOutput = document.getElementById('numStableBeatsOutput');
+var numMelodicTurnsSlider = document.getElementById('numMelodicTurns');
+var numMelodicTurnsOutput = document.getElementById('numMelodicTurnsOutput');
+var tempoSlider = document.getElementById('tempo');
+var tempoOutput = document.getElementById('tempoOutput');
+numNotesSlider.oninput = function() {
+	numNotesOutput.innerHTML = this.value;
+}
+numStableBeatsSlider.oninput = function() {
+	numStableBeatsOutput.innerHTML = this.value;
+}
+numMelodicTurnsSlider.oninput = function() {
+	numMelodicTurnsOutput.innerHTML = this.value;
+}
+tempoSlider.oninput = function() {
+	tempoOutput.innerHTML = this.value;
+}
 var randomPatternButton = document.getElementById('random-pattern-button');
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
@@ -125,6 +145,8 @@ function nextPattern() {
 	var randomPattern = pickPattern(allPatterns, numNotes, numStableBeats, numMelodicTurns);
 	// check if random pattern exists given parameters
 	if (randomPattern != -1) {
+		// allow audio playback
+		playButton.disabled = false;
 		// create VexFlow voice from pattern
 		var newVoice = voice(notes(createLine(randomPattern)));
 		// create MIDI track from voice
@@ -145,6 +167,10 @@ function nextPattern() {
 			]
 	 	}).addClef('bass').addKeySignature('G#m');
 		vf.draw();
+	}
+	else {
+		// do not allow audio playback
+		playButton.disabled = true;
 	}
 }
 
