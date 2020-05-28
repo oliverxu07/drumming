@@ -5,10 +5,13 @@ var MidiWriter = require('midi-writer-js');
 var vexWriter = new MidiWriter.VexFlow();
 
 // configure interactivity
-var button = document.getElementById('random-pattern-button');
-button.addEventListener('click', nextPattern);
+var randomPatternButton = document.getElementById('random-pattern-button');
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
+randomPatternButton.addEventListener('click', function() {
+	Player.pause();
+	nextPattern();
+});
 playButton.addEventListener('click', function() {
 	console.log(ac.state);
 	if (ac.state === 'suspended') {
@@ -51,6 +54,12 @@ var Player = new MidiPlayer.Player(function(event) {
 	midiCallback(event);
 });
 
+// Loop track
+Player.on('endOfFile', function() {
+	Player.stop();
+	Player.play();
+});
+
 // initialize AudioContext
 var ac;
 if ('webkitAudioContext' in window) {
@@ -76,11 +85,8 @@ function getUrl() {
 
 // plays each note
 function midiCallback(event) {	
-	if (event.name == 'Note on') {
+	if (event.name == 'Note on' && event.velocity != 0) {
 		instrument.play(event.noteName);
-	}
-	else if (event.name == 'Note off') {
-		// instrument.stop();
 	}
 }
 
@@ -1861,7 +1867,7 @@ function () {
     _classCallCheck(this, VexFlow);
   } // code...
 
-  /**
+    /**
    * Support for converting VexFlow voice into MidiWriterJS track
    * @return MidiWritier.Track object
    */
@@ -1897,6 +1903,15 @@ function () {
 
         wait = [];
       });
+      if (wait.length > 0) {
+        wait.pop();
+        track.addEvent(new NoteEvent({
+          pitch: 'd4',
+          duration: '8',
+          wait: wait,
+          velocity: 0
+        }));
+      }
       return track;
     }
     /**

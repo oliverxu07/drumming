@@ -1,5 +1,4 @@
 
-
 /*
 * This file contains the algorithms used to generate and select patterns
 */

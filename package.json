@@ -1,0 +1,25 @@
+{
+  "name": "drumming",
+  "version": "1.0.0",
+  "description": "This project uses an algorithmic approach to explore the concept of resultant patterns, as used by Steve Reich in his composition, Drumming (1971).",
+  "main": "index.js",
+  "dependencies": {
+    "midi-player-js": "^2.0.5",
+    "midi-writer-js": "^1.7.2",
+    "soundfont-player": "^0.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliverxu07/drumming.git"
+  },
+  "author": "Oliver Xu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliverxu07/drumming/issues"
+  },
+  "homepage": "https://github.com/oliverxu07/drumming#readme"
+}
