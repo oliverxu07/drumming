@@ -5,6 +5,9 @@
 		.button {
 			font-size: 36px;
 		}
+		.slider {
+			width: 25%;
+		}
 	</style>
 </head>
 <body>
@@ -32,22 +35,22 @@
 	<h4>Adjust parameters and click the Random Pattern button</h4>
 	<p style="font-size:24px">
 		<label for="numNotes">Number of notes (0-10):</label>
-		<input type="range" id="numNotes" min="0" max="10" value="8" step="1">
+		<input type="range" class="slider" id="numNotes" min="0" max="10" value="8" step="1">
 		<output id="numNotesOutput" for="numNotes">8</output>
 	</p>
 	<p style="font-size:24px">
 		<label for="numStableBeats">Number of stable beats (0-3):</label>
-		<input type="range" id="numStableBeats" min="0" max="3" value="3" step="1">
+		<input type="range" class="slider" id="numStableBeats" min="0" max="3" value="3" step="1">
 		<output id="numStableBeatsOutput" for="numStableBeats">3</output>
 	</p>
 	<p style="font-size:24px">
 		<label for="numMelodicTurns">Number of melodic turns (0-5):</label>
-		<input type="range" id="numMelodicTurns" min="0" max="5" value="3" step="1">
+		<input type="range" class="slider" id="numMelodicTurns" min="0" max="5" value="3" step="1">
 		<output id="numMelodicTurnsOutput" for="numMelodicTurns">3</output>
 	</p>
 	<p style="font-size:24px">
 		<label for="tempo">Tempo (60-500bpm):</label>
-		<input type="range" id="tempo" min="60" max="500" value="324" step="1">
+		<input type="range" class="slider" id="tempo" min="60" max="500" value="324" step="1">
 		<output id="tempoOutput" for="tempo">324</output>
 	</p>
 	<button class="button" id="random-pattern-button">Random Pattern</button>
