@@ -3,6 +3,7 @@
 	<title> Drumming </title>
 	<style>
 		.button {
+			width: 20%;
 			font-size: 36px;
 		}
 		.slider {
@@ -48,16 +49,16 @@
 		<input type="range" class="slider" id="numMelodicTurns" min="0" max="5" value="3" step="1">
 		<output id="numMelodicTurnsOutput" for="numMelodicTurns">3</output>
 	</p>
-	<p style="font-size:24px">
-		<label for="tempo">Tempo (60-500bpm):</label>
-		<input type="range" class="slider" id="tempo" min="60" max="500" value="324" step="1">
-		<output id="tempoOutput" for="tempo">324</output>
-	</p>
 	<button class="button" id="random-pattern-button">Random Pattern</button>
 	<p>Out of the 11,664 possibilities, here are the number of patterns that exist for these parameters:</p>
 	<p id="numPatterns"></p>
 	<div id="stave-container"></div>
 	<p></p>
+	<p style="font-size:24px">
+		<label for="tempo">Tempo (60-500bpm):</label>
+		<input type="range" class="slider" id="tempo" min="60" max="500" value="324" step="1">
+		<output id="tempoOutput" for="tempo">324</output>
+	</p>
 	<button class="button" id="play-button">Play</button>
 	<button class="button" id="pause-button">Pause</button>
 	<p>If you are using an iPhone and cannot hear the audio playback, please make sure that silent mode is off.</p>

@@ -4,7 +4,7 @@ var Soundfont = require('soundfont-player');
 var MidiWriter = require('midi-writer-js');
 var vexWriter = new MidiWriter.VexFlow();
 
-// configure interactivity
+// configure interactivity for sliders
 var numNotesSlider = document.getElementById('numNotes');
 var numNotesOutput = document.getElementById('numNotesOutput');
 var numStableBeatsSlider = document.getElementById('numStableBeats');
@@ -25,6 +25,8 @@ numMelodicTurnsSlider.oninput = function() {
 tempoSlider.oninput = function() {
 	tempoOutput.innerHTML = this.value;
 }
+
+// configure interactivity for buttons
 var randomPatternButton = document.getElementById('random-pattern-button');
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
@@ -33,7 +35,7 @@ randomPatternButton.addEventListener('click', function() {
 	nextPattern();
 });
 playButton.addEventListener('click', function() {
-	console.log(ac.state);
+	Player.setTempo(tempoSlider.value);
 	if (ac.state === 'suspended') {
 		ac.resume().then(function() {
 			Player.play();
@@ -141,7 +143,6 @@ function nextPattern() {
 	var numNotes = document.getElementById("numNotes").value;
 	var numStableBeats = document.getElementById("numStableBeats").value;
 	var numMelodicTurns = document.getElementById("numMelodicTurns").value;
-	var tempo = document.getElementById("tempo").value;
 	// generate random pattern using parameters
 	var randomPattern = pickPattern(allPatterns, numNotes, numStableBeats, numMelodicTurns);
 	// check if random pattern exists given parameters
@@ -152,8 +153,6 @@ function nextPattern() {
 		var newVoice = voice(notes(createLine(randomPattern)));
 		// create MIDI track from voice
 		var track = vexWriter.trackFromVoice(newVoice);
-		// set tempo for MIDI track
-		track.setTempo(tempo);
 		// create Writer from track
 		var writer = new MidiWriter.Writer([track]);
 		// write MIDI track as dataUri
