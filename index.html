@@ -26,21 +26,21 @@
 	<p>"...drummers three and four sing and/or play patterns they hear clearly emerging from the combination of the first two drummers." - Steve Reich</p>
 	<h4>Adjust parameters and click the Generate Pattern button</h4>
 	<p><i>Each time you click the button, a pattern that fits these parameters will be randomly generated.</i></p>
-	<p style="font-size:24px">
+	<div class="parameter">
 		<label for="numNotes">Number of notes (0-10):</label>
 		<input type="range" class="slider" id="numNotes" min="0" max="10" value="8" step="1">
 		<output id="numNotesOutput" for="numNotes">8</output>
-	</p>
-	<p style="font-size:24px">
+	</div>
+	<div class="parameter">
 		<label for="numStableBeats">Number of stable beats (0-3):</label>
 		<input type="range" class="slider" id="numStableBeats" min="0" max="3" value="3" step="1">
 		<output id="numStableBeatsOutput" for="numStableBeats">3</output>
-	</p>
-	<p style="font-size:24px">
+	</div>
+	<div class="parameter">
 		<label for="numMelodicTurns">Number of melodic turns (0-5):</label>
 		<input type="range" class="slider" id="numMelodicTurns" min="0" max="5" value="3" step="1">
 		<output id="numMelodicTurnsOutput" for="numMelodicTurns">3</output>
-	</p>
+	</div>
 	<button class="button" id="generate-pattern-button">Generate Pattern</button>
 	<p>Out of the <b>11,664</b> possibilities, here are the number of patterns that exist for these parameters:</p>
 	<p id="numPatterns" style="font-weight:bold"></p>

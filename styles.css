@@ -2,9 +2,13 @@
 button {
 	font-size: 36px;
 }
+.parameter {
+	font-size: 24px;
+	margin: 40px 0px 40px 20px;
+}
 input[type=range] {
 	-webkit-appearance: none;
-	width: 25%;
+	width: 50%;
 }
 input[type=range]::-webkit-slider-thumb {
 	border: 1px solid #000000;
