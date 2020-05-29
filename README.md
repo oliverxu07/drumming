@@ -8,7 +8,10 @@ In the first part, two players build up the basic rhythmic pattern on four pairs
 
 ## An Algorithmic Approach
 
-When I learned and performed *Drumming* with the Eastman Percussion Ensemble, my friend Victor and I were the ones playing the resultant patterns at the beginning of the piece. With pen and paper, we were able to figure out some interesting patterns that we could use in performance. This was the inspiration for this project, in which I used an algorithm to generate all possible resultant patterns given a composite texture created from two or more phased patterns. From these patterns, which include **11,664** possibilities given two phased patterns, groups of patterns are selected based on parameters that the user can enter.
+When I learned and performed *Drumming* with the Eastman Percussion Ensemble, my friend Victor and I were the ones playing the resultant patterns at the beginning of the piece. With pen and paper, we were able to figure out some interesting patterns that we could use in performance. This was the inspiration for this project, in which I used an algorithm to generate all possible resultant patterns given a composite texture created from two or more phased patterns. From these patterns, which include **11,664** possibilities given two phased patterns, groups of patterns are selected based on the following parameters that the user can adjust.
+1. Number of notes: this measures the density of the pattern.
+2. Number of stable beats: this measures the rhythmic stability of the pattern.
+3. Number of melodic turns: this measures the melodic contour of the pattern.
 
 ## Resources
 
