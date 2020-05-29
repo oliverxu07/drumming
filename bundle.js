@@ -27,10 +27,10 @@ tempoSlider.oninput = function() {
 }
 
 // configure interactivity for buttons
-var randomPatternButton = document.getElementById('random-pattern-button');
+var generatePatternButton = document.getElementById('generate-pattern-button');
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
-randomPatternButton.addEventListener('click', function() {
+generatePatternButton.addEventListener('click', function() {
 	Player.pause();
 	nextPattern();
 });
