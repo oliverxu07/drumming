@@ -6,9 +6,64 @@
 <body>
 
 <h1>Drumming: An algorithmic approach</h1>
-<h2>Developed by <a href="https://oxumusic.com">Oliver Xu</a></h2>
+<h2>Developed by <a target="_blank" href="https://oxumusic.com">Oliver Xu</a></h2>
 <p>This project explores resultant patterns in Steve Reich's <i>Drumming</i>.</p>
-<a href="https://github.com/oliverxu07/drumming/blob/master/README.md">Read more about this project</a>
+
+<section>
+	<button onclick="showElement('background')">Background</button>
+	<div id="background" style="display:none">
+		<p>This project uses an algorithmic approach to explore the concept of resultant patterns, as used by Steve Reich in his composition, <em>Drumming</em> (1971). <em>Drumming</em> is a large-scale work written for bongos, marimbas, glockenspiels, female voices, and piccolo. In <em>Drumming</em>, Reich explores different rhythmic processes, including phasing, build-up and reduction, and resultant patterns. The hour-long piece is built around a single repeated rhythm in 12/8. While composing <em>Drumming</em>, Reich noticed that he could hear women&#39;s voices when playing the rhythm on marimba.</p>
+		<blockquote>
+		<p>&quot;The women’s voices sing patterns resulting from the combination of two or more marimbas playing the identical repeating pattern one of more quarter notes out of phase with each other. By exactly imitating the sound of the instruments, and by gradually fading the patterns in and out, the singers cause them to slowly rise to the surface of the music and then fade back into it, allowing the listener to hear these patterns, along with many others, actually sounding in the instruments.&quot; - Steve Reich</p>
+		</blockquote>
+		<p>In the first part, two players build up the basic rhythmic pattern on four pairs of tuned bongo drums, and then phase a quarter note apar from each other. At this point, two more players go back and forth playing different resultant patterns that they hear as a result of the combination of the phased patterns.</p>
+	</div>
+</section>
+
+<section>
+	<button onclick="showElement('algorithm')">Algorithm</button>
+	<div id="algorithm" style="display:none">
+		<p>When I learned and performed <em>Drumming</em> with the Eastman Percussion Ensemble, my friend Victor and I were the ones playing the resultant patterns at the beginning of the piece. With pen and paper, we were able to figure out some interesting patterns that we could use in performance. This was the inspiration for this project, in which I used an algorithm to generate all possible resultant patterns given a composite texture created from two phased patterns. From these patterns, which include <strong>11,664</strong> possibilities given two phased patterns, groups of patterns are selected based on the following parameters that the user can adjust.</p>
+		<ol>
+		<li>Number of notes: this measures the density of the pattern. In one measure of 12/8, a pattern can have up to ten 8th notes. In the composite texture, there are no notes in the 4th and 10th &quot;slots&quot; in the measure.</li>
+		<li>Number of stable beats: this measures the rhythmic stability of the pattern. If the pattern is heard in 3/2, which is a common way to perceive it, then the pattern can have up to three stable beats: the 1st, 5th, and 9th &quot;slots&quot; in the measure.</li>
+		<li>Number of melodic turns: this measures the melodic contour of the pattern. One melodic turn is defined as a change in direction of the melodic line, either from ascending to descending or vice versa. From one downbeat to the next, there can exist up to five melodic turns in a pattern.</li>
+		</ol>
+	</div>
+</section>
+
+<section>
+	<button onclick="showElement('conclusion')">Conclusion</button>
+	<div id="conclusion" style="display:none">
+		<p>An important motivation for this project was to discover if I could find a way to teach a computer what it means for a resultant pattern to be interesting for a human listener. By choosing three important musical parameters that characterize a resultant pattern (note density, rhythmic stability, and melodic contour), I was able to organize the vast number of possible patterns into groups of similar patterns. Furthermore, I was able to identify the groups of patterns that would be uninteresting for a human listener. Most of the patterns with less than four notes are uninteresting, while those with more than eight notes have too much going on. Patterns with zero or one stable beats are both difficult for the listener to understand and for the performer to execute. Patterns with zero melodic turns are purely rhythmic, while those with five melodic turns may be difficult to understand.</p>
+		<p>With these generalities in mind, it is possible to identify the groups of patterns that are likely to be interesting for a human listener. There exist hundreds, if not thousands of these patterns that a performer may not otherwise discover, whether with his or her ear during a performance or by studying the composite texture. I hope that this project will inspire performers to seek out unique patterns, perhaps after finding some interesting ones with this website. Alternatively, those with experience performing <em>Drumming</em> can analyze the patterns that they have used, and use this website to discover additional patterns that share some characteristics.</p>
+	</div>
+</section>
+
+<section>
+	<button onclick="showElement('resources')">Resources</button>
+	<div id="resources" style="display:none">
+		<ol>
+		<li><a target="_blank" href="https://youtu.be/aEJtf0uvHfI?t=176">YouTube video demonstrating resultant patterns</a></li>
+		<li><a target="_blank" href="https://www.boosey.com/cr/music/Steve-Reich-Drumming/1374">Full program notes by Steve Reich</a></li>
+		<li><a target="_blank" href="https://www.npr.org/2000/07/17/1079628/drumming?fbclid=IwAR2At5BU6ySeTyGwDPZ-hKOr1Tb-wE4dyzwd3oFRq9Z-DSrDqmYwDiuOGAE">NPR interview with Steve Reich</a></li>
+		<li><a target="_blank" href="https://www.pas.org/about/hall-of-fame/steve-reich">PAS Hall of Fame article</a></li>
+		<li><a target="_blank" href="https://www.stevereich.com/">Steve Reich&#39;s website</a></li>
+		</ol>
+	</div>
+</section>
+
+<script>
+	function showElement(id) {
+		var element = document.getElementById(id)
+		if (element.style.display === "none") {
+			element.style.display = "block";
+		}
+		else {
+			element.style.display = "none";
+		}
+	}
+</script>
 
 <section>
 	<h3>Pattern played by drummer 1</h3>
@@ -28,33 +83,38 @@
 	<p><i>Each time you click the button, a pattern that fits these parameters will be randomly generated.</i></p>
 	<div class="parameter">
 		<label for="numNotes">Number of notes (0-10):</label>
-		<input type="range" class="slider" id="numNotes" min="0" max="10" value="8" step="1">
+		<input type="range" id="numNotes" min="0" max="10" value="8" step="1">
 		<output id="numNotesOutput" for="numNotes">8</output>
+		<p><i>This measures the density of the pattern.</i></p>
 	</div>
 	<div class="parameter">
 		<label for="numStableBeats">Number of stable beats (0-3):</label>
-		<input type="range" class="slider" id="numStableBeats" min="0" max="3" value="3" step="1">
+		<input type="range" id="numStableBeats" min="0" max="3" value="3" step="1">
 		<output id="numStableBeatsOutput" for="numStableBeats">3</output>
+		<p><i>This measures the rhythmic stability of the pattern.</i></p>
 	</div>
 	<div class="parameter">
 		<label for="numMelodicTurns">Number of melodic turns (0-5):</label>
-		<input type="range" class="slider" id="numMelodicTurns" min="0" max="5" value="3" step="1">
+		<input type="range" id="numMelodicTurns" min="0" max="5" value="3" step="1">
 		<output id="numMelodicTurnsOutput" for="numMelodicTurns">3</output>
+		<p><i>This measures the melodic contour of the pattern.</i></p>
 	</div>
 	<button class="button" id="generate-pattern-button">Generate Pattern</button>
 	<p>Out of the <b>11,664</b> possibilities, here are the number of patterns that exist for these parameters:</p>
 	<p id="numPatterns" style="font-weight:bold"></p>
 	<div id="stave-container"></div>
 	<p></p>
-	<p style="font-size:24px">
+	<div class="parameter">
 		<label for="tempo">Tempo (60-500bpm):</label>
 		<input type="range" class="slider" id="tempo" min="60" max="500" value="324" step="1">
 		<output id="tempoOutput" for="tempo">324</output>
-	</p>
-	<button class="button" style="width:25%" id="play-button">Play</button>
-	<button class="button" style="width:25%" id="pause-button">Pause</button>
+	</div>
+	<button class="button" id="play-button">Play</button>
+	<button class="button" id="pause-button">Pause</button>
 	<p>If you are using an iPhone and cannot hear the audio playback, please make sure that silent mode is off.</p>
 </section>
+
+<a target="_blank" href="https://github.com/oliverxu07/drumming/blob/master/README.md">Project code available here</a>
 
 <script src="vexflow-min.js"></script>
 <script src="midiplayer.js"></script>
