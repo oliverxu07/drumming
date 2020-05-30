@@ -2,10 +2,14 @@
 button {
 	font-size: 36px;
 	width: 25%;
-	height: 2.5em;
+	height: 3em;
 	border: 1px solid #000000;
 	border-radius: 1em;
-	margin-bottom: .5em;
+	margin-bottom: 1em;
+}
+output {
+	font-size: 36px;
+	font-weight: bold;
 }
 .parameter {
 	font-size: 24px;
