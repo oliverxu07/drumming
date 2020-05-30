@@ -11,6 +11,12 @@ output {
 	font-size: 36px;
 	font-weight: bold;
 }
+.info {
+	font-size: 20px;
+}
+p {
+	font-size: 20px;
+}
 .parameter {
 	font-size: 24px;
 	margin: 2em 1em
