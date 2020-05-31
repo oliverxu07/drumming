@@ -19,7 +19,7 @@ p {
 }
 .parameter {
 	font-size: 24px;
-	margin: 2em 1em
+	margin: 1em 1em
 }
 input[type=range] {
 	-webkit-appearance: none;
