@@ -23,7 +23,7 @@ With these generalities in mind, it is possible to identify the groups of patter
 
 ## Resources
 
-1. [YouTube video demonstrating resultant patterns](https://youtu.be/aEJtf0uvHfI?t=176)
+1. [YouTube video demonstrating resultant patterns](https://youtu.be/cA3rkCLz0_o?t=221)
 2. [Full program notes by Steve Reich](https://www.boosey.com/cr/music/Steve-Reich-Drumming/1374)
 3. [NPR interview with Steve Reich](https://www.npr.org/2000/07/17/1079628/drumming?fbclid=IwAR2At5BU6ySeTyGwDPZ-hKOr1Tb-wE4dyzwd3oFRq9Z-DSrDqmYwDiuOGAE)
 4. [PAS Hall of Fame article](https://www.pas.org/about/hall-of-fame/steve-reich)
