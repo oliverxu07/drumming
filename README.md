@@ -6,7 +6,7 @@ This project uses an algorithmic approach to explore the concept of resultant pa
 
 > "The women’s voices sing patterns resulting from the combination of two or more marimbas playing the identical repeating pattern one of more quarter notes out of phase with each other. By exactly imitating the sound of the instruments, and by gradually fading the patterns in and out, the singers cause them to slowly rise to the surface of the music and then fade back into it, allowing the listener to hear these patterns, along with many others, actually sounding in the instruments." - Steve Reich
 
-In the first part, two players build up the basic rhythmic pattern on four pairs of tuned bongo drums, and then phase a quarter note apar from each other. At this point, two more players go back and forth playing different resultant patterns that they hear as a result of the combination of the phased patterns.
+In the first part, two players build up the basic rhythmic pattern on four pairs of tuned bongo drums, and then phase a quarter note apart from each other. At this point, two more players go back and forth playing different resultant patterns that they hear as a result of the combination of the phased patterns.
 
 ## An Algorithmic Approach
 
