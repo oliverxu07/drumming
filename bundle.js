@@ -34,14 +34,7 @@ var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
 playCompositeButton.addEventListener('click', function() {
 	Player.pause();
-	// create MIDI tracks from voices
-	var track1 = vexWriter.trackFromVoice(voice1);
-	var track2 = vexWriter.trackFromVoice(voice2);
-	var writer = new MidiWriter.Writer([track1, track2]);
-	// write MIDI track as dataUri
-	var dataUri = writer.dataUri();
-	// load MIDI track into Player
-	Player.loadDataUri(dataUri);
+	Player.loadDataUri(compositeDataUri);
 	play();
 });
 pauseCompositeButton.addEventListener('click', function() {
@@ -75,6 +68,7 @@ var drummer1 = [0, 3, 5, -1, 3, -1, 5, 3, 2, -1, 3, -1];
 var drummer2 = [5, -1, 3, -1, 5, 3, 2, -1, 3, -1, 0, 3];
 var voice1 = drawParts('drummer1', drummer1);
 var voice2 = drawParts('drummer2', drummer2);
+var compositeDataUri = getCompositeMidi(voice1, voice2);
 var composite = createComposite(drummer1, drummer2);
 var allPatterns = genAllPatterns(composite);
 // this is set by nextPattern()
@@ -112,6 +106,17 @@ Soundfont.instrument(ac, '', {nameToUrl: getUrl}).then(function (bongos) {
 
 function getUrl() {
 	return 'https://oxumusic.com/project/bongos.mp3.js';
+}
+
+// given two patterns, return composite as dataUri
+function getCompositeMidi(voice1, voice2) {
+	// create MIDI tracks from voices
+	var track1 = vexWriter.trackFromVoice(voice1);
+	var track2 = vexWriter.trackFromVoice(voice2);
+	var writer = new MidiWriter.Writer([track1, track2]);
+	// write MIDI track as dataUri
+	var dataUri = writer.dataUri();
+	return dataUri;
 }
 
 function play() {
