@@ -27,26 +27,34 @@ tempoSlider.oninput = function() {
 }
 
 // configure interactivity for buttons
+var playCompositeButton = document.getElementById('play-composite-button');
+var pauseCompositeButton = document.getElementById('pause-composite-button');
 var generatePatternButton = document.getElementById('generate-pattern-button');
 var playButton = document.getElementById('play-button');
 var pauseButton = document.getElementById('pause-button');
+playCompositeButton.addEventListener('click', function() {
+	Player.pause();
+	// create MIDI tracks from voices
+	var track1 = vexWriter.trackFromVoice(voice1);
+	var track2 = vexWriter.trackFromVoice(voice2);
+	var writer = new MidiWriter.Writer([track1, track2]);
+	// write MIDI track as dataUri
+	var dataUri = writer.dataUri();
+	// load MIDI track into Player
+	Player.loadDataUri(dataUri);
+	play();
+});
+pauseCompositeButton.addEventListener('click', function() {
+	Player.pause();
+});
 generatePatternButton.addEventListener('click', function() {
 	Player.pause();
 	nextPattern();
 });
 playButton.addEventListener('click', function() {
-	Player.setTempo(tempoSlider.value);
-	if (ac.state === 'suspended') {
-		ac.resume().then(function() {
-			Player.play();
-		})
-	}
-	else {
-		if (Player.isPlaying()) {
-			Player.stop();
-		}
-		Player.play();
-	}
+	Player.pause();
+	Player.loadDataUri(dataUri);
+	play();
 });
 pauseButton.addEventListener('click', function() {
 	Player.pause();
@@ -65,10 +73,11 @@ var notes = score.notes.bind(score);
 
 var drummer1 = [0, 3, 5, -1, 3, -1, 5, 3, 2, -1, 3, -1];
 var drummer2 = [5, -1, 3, -1, 5, 3, 2, -1, 3, -1, 0, 3];
-drawParts('drummer1', drummer1);
-drawParts('drummer2', drummer2);
+var voice1 = drawParts('drummer1', drummer1);
+var voice2 = drawParts('drummer2', drummer2);
 var composite = createComposite(drummer1, drummer2);
 var allPatterns = genAllPatterns(composite);
+// this is set by nextPattern()
 var dataUri;
 
 // Initialize player and register event handler
@@ -105,6 +114,21 @@ function getUrl() {
 	return 'https://oxumusic.com/project/bongos.mp3.js';
 }
 
+function play() {
+	Player.setTempo(tempoSlider.value);
+	if (ac.state === 'suspended') {
+		ac.resume().then(function() {
+			Player.play();
+		})
+	}
+	else {
+		if (Player.isPlaying()) {
+			Player.stop();
+		}
+		Player.play();
+	}
+}
+
 // plays each note
 function midiCallback(event) {	
 	if (event.name == 'Note on' && event.velocity != 0) {
@@ -112,6 +136,7 @@ function midiCallback(event) {
 	}
 }
 
+// converts integer note to VexFlow note
 function getNote(num) {
 	switch (num) {
 		case -1:
@@ -156,7 +181,7 @@ function nextPattern() {
 		// create Writer from track
 		var writer = new MidiWriter.Writer([track]);
 		// write MIDI track as dataUri
-		var dataUri = writer.dataUri();
+		dataUri = writer.dataUri();
 		// load MIDI track into Player
 		Player.loadDataUri(dataUri);
 		// draw VexFlow voice
@@ -186,15 +211,14 @@ function drawParts(elementId, pattern) {
 	var context = vf.getContext();
 	var voice = score.voice.bind(score);
 	var notes = score.notes.bind(score);
+	var newVoice = voice(notes(createLine(pattern)));
  	system.addStave({
  		voices: [
-			voice(
-				notes(createLine(pattern))
-			)
+			newVoice
 		]
  	}).addClef('bass').addKeySignature('G#m');
-
 	vf.draw();
+	return newVoice;
 }
 },{"midi-writer-js":6,"soundfont-player":17}],2:[function(require,module,exports){
 module.exports = ADSR
