@@ -194,7 +194,7 @@ function nextPattern() {
 	 		voices: [
 				newVoice
 			]
-	 	}).addClef('bass').addKeySignature('G#m');
+	 	}).addClef('bass').addKeySignature('D#m');
 		vf.draw();
 	}
 	else {
@@ -220,7 +220,7 @@ function drawParts(elementId, pattern) {
  		voices: [
 			newVoice
 		]
- 	}).addClef('bass').addKeySignature('G#m');
+ 	}).addClef('bass').addKeySignature('D#m');
 	vf.draw();
 	return newVoice;
 }
